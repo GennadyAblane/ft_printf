@@ -41,8 +41,6 @@ int main()
 //	p = printf("[%15.8s][%s] [%-15.11s] eshe raz", NULL, "%015d", "shpilivili");
 
 	p = printf("[%#.5x], [%s]", 21, "%#.5x], 17");
-	// ("%0-3.7d",
-	// 3267);
 	printf("\n");
 	printf("\n");
 	printf("%d", p);
