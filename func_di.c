@@ -6,7 +6,7 @@
 /*   By: ablane <ablane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 17:22:47 by ablane            #+#    #+#             */
-/*   Updated: 2020/02/04 10:01:33 by ablane           ###   ########.fr       */
+/*   Updated: 2020/02/04 12:21:24 by ablane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,6 +198,12 @@ void	ft_max_accuracy(ssize_t len, ssize_t z, t_flag *flag, char *p)
 {
 	char *d;
 
+//	if (flag->reshotka && (flag->specif == 'x' || flag->specif == 'X') &&
+//	p[0] != '0')		//todo x
+//	{
+//		d = ft_oct_str(flag->specif);
+//		ft_strlistadd_end(&g_str, newnode(d));
+//	}
 	d = ft_strspace(flag->accuracy - len , 2);
 	if (z)
 		ft_strlistadd_end(&g_str, newnode(ft_plusminus(flag)));

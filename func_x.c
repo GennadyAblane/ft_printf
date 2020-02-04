@@ -6,7 +6,7 @@
 /*   By: ablane <ablane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 16:46:53 by ablane            #+#    #+#             */
-/*   Updated: 2020/02/04 10:12:15 by ablane           ###   ########.fr       */
+/*   Updated: 2020/02/04 14:33:30 by ablane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,18 +59,119 @@ char *ft_octothorpe_x(char *d, ssize_t len, int n)
 	return (p);
 }
 
-char	*ft_parsing_act_x(ssize_t len, t_flag *flag, char *p, int n)
+char *ft_oct_str(int n)
 {
-	if(flag->reshotka && flag->specif != 'd')
+	char *b;
+	char c;
+
+	if (n == 0)
+		c = 'x';
+	else
+		c = 'X';
+	b = ft_strspace(2, 2);
+	if (!b)
+		return (NULL);
+	b[1] = c;
+	return (b);
+}
+
+void	ft_x_left_octothorpe(ssize_t len, t_flag *flag, char *p, int n)
+{
+	if (len == 1 && p[0] == '0' && flag->wild > len && flag->wild >
+													   flag->accuracy && len > flag->accuracy)
+		ft_max_wild(len, 0, flag, p);
+	if (flag->wild > flag->accuracy && flag->wild > len + 2 && flag->accuracy
+															   < len)
 	{
-		p = ft_octothorpe_x(p, len, n);
-		len = ft_strlen(p);
+		if(p[0] == '0' && len == 1)
+			ft_max_wild(len, 0, flag, p);
+		if (!(p[0] == '0' && len == 1) && (flag->wild > len + 2))
+				ft_max_wild(len + 2, 0, flag, p);
+	}
+	if (flag->wild > flag->accuracy && flag->wild > len + 2 && flag->accuracy
+															   > len)
+	{
+		ft_max_wild(2 + flag->accuracy, 0, flag, p);
+		if (!(p[0] == '0' && len == 1))
+			ft_strlistadd_end(&g_str, newnode(ft_oct_str(n)));
+		ft_max_accuracy(len, 0, flag, p);
+	}
+	if (flag->accuracy > len && flag->accuracy > flag->wild)
+	{
+		if (!(p[0] == '0' && len == 1))
+			ft_strlistadd_end(&g_str, newnode(ft_oct_str(n)));
+		ft_max_accuracy(len, 0, flag, p);
+	}
+	if (len + 2 >= flag->accuracy && len + 2 >= flag->wild)
+	{
+		if (!(p[0] == '0' && len == 1))
+			ft_strlistadd_end(&g_str, newnode(p));
+	}
+}
+
+void	ft_x_right_octothorpe(ssize_t len, t_flag *flag, char *p, int n)
+{
+	if (len == 1 && p[0] == '0' && flag->wild > len && flag->wild >
+	flag->accuracy && len > flag->accuracy)
+		ft_max_wild(len, 0, flag, p);
+	if (flag->wild > flag->accuracy && flag->wild > len + 2 && flag->accuracy
+	        < len)
+	{
+		if(p[0] == '0' && len == 1)
+			ft_max_wild(len, 0, flag, p);
+		if (!(p[0] == '0' && len == 1))
+		{
+			if (flag->wild > len + 2)
+				ft_max_wild(len + 2, 0, flag, p);
+			ft_strlistadd_end(&g_str, newnode(ft_oct_str(n)));
+		}
+	}
+	if (flag->wild > flag->accuracy && flag->wild > len + 2 && flag->accuracy
+															   > len)
+	{
+		ft_max_wild(2 + flag->accuracy, 0, flag, p);
+		if (!(p[0] == '0' && len == 1))
+			ft_strlistadd_end(&g_str, newnode(ft_oct_str(n)));
+		ft_max_accuracy(len, 0, flag, p);
+	}
+	if (flag->accuracy > len && flag->accuracy >= flag->wild)
+	{
+		if (!(p[0] == '0' && len == 1))
+			ft_strlistadd_end(&g_str, newnode(ft_oct_str(n)));
+		ft_max_accuracy(len, 0, flag, p);
+	}
+	if (len + 2 >= flag->accuracy && len + 2 >= flag->wild)
+	{
+		if (!(p[0] == '0' && len == 1))
+			ft_strlistadd_end(&g_str, newnode(ft_oct_str(n)));
+	}
+}
+
+void ft_act_octothorpe(ssize_t len, t_flag *flag, char *p, int n)
+{
+	if(flag->zero)
+	{
+		flag->zero = 0;
+		flag->accuracy = len + 1;
 	}
 	if (flag->min == 0)
-		ft_x_right(len, flag, p);
+		ft_x_right_octothorpe(len, flag, p, n);
 	if (flag->min == 1)
+	{
+		if (!(p[0] == '0' && len == 1))
+			ft_strlistadd_end(&g_str, newnode(ft_oct_str(n)));
+		ft_x_left_octothorpe(len, flag, p, n);
+	}
+}
+
+void	ft_parsing_act_x(ssize_t len, t_flag *flag, char *p, int n)
+{
+	if (flag->reshotka)
+		ft_act_octothorpe(len, flag, p, n);
+	else if (flag->min == 0)
+		ft_x_right(len, flag, p);
+	else if (flag->min == 1)
 		ft_x_left(len, flag, p);
-	return (p);
 }
 
 int	ft_x(const char *fr, size_t i)
@@ -112,7 +213,7 @@ void	func_x(size_t i, const char *fr, va_list str)
 		p[0] = 0;
 		len--;
 	}
-	p = ft_parsing_act_x(len, flag, p, n);
+	ft_parsing_act_x(len, flag, p, n);
 	if (flag->min == 0)
 		ft_strlistadd_end(&g_str, newnode(p));
 	free(flag);
