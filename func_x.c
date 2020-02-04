@@ -6,7 +6,7 @@
 /*   By: ablane <ablane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 16:46:53 by ablane            #+#    #+#             */
-/*   Updated: 2020/02/04 14:33:30 by ablane           ###   ########.fr       */
+/*   Updated: 2020/02/04 14:38:17 by ablane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,8 @@ void ft_act_octothorpe(ssize_t len, t_flag *flag, char *p, int n)
 	if(flag->zero)
 	{
 		flag->zero = 0;
-		flag->accuracy = len + 1;
+		if (flag->accuracy <= len)
+			flag->accuracy = len + 1;
 	}
 	if (flag->min == 0)
 		ft_x_right_octothorpe(len, flag, p, n);
