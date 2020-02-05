@@ -6,7 +6,7 @@
 /*   By: ablane <ablane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 16:46:53 by ablane            #+#    #+#             */
-/*   Updated: 2020/02/05 12:17:29 by ablane           ###   ########.fr       */
+/*   Updated: 2020/02/05 13:07:14 by ablane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,39 @@ char *ft_oct_str(int n)
 	return (b);
 }
 
+void	ft_max_wild_octothorpe_zero_lh(ssize_t len, t_flag *flag, char *p,
+		int n)
+{
+	if (len > flag->accuracy)
+	{
+		if(flag->accuracy == -1)
+		{
+			ft_strlistadd_end(&g_str, newnode(ft_oct_str(n)));
+			ft_strlistadd_end(&g_str, newnode(ft_strspace(flag->wild - (len +
+			2), flag->zero)));
+		}
+		else
+		{
+			ft_max_wild(len + 2, 0, flag, p);
+			ft_strlistadd_end(&g_str, newnode(ft_oct_str(n)));
+		}
+	}
+	if (flag->accuracy > len)
+	{
+		flag->zero = 0;
+		ft_strlistadd_end(&g_str, newnode(ft_strspace(flag->wild -
+													  (flag->accuracy + len), 1)));
+		ft_strlistadd_end(&g_str, newnode(ft_oct_str(n)));
+		ft_strlistadd_end(&g_str, newnode(ft_strspace(flag->accuracy - len,
+													  2)));
+	}
+}
+
 void	ft_x_left_octothorpe(ssize_t len, t_flag *flag, char *p, int n)
 {
-	if (flag->wild > len && flag->wild > flag->accuracy && len >=
+	if (flag->wild > flag->accuracy && p[0] == '\0' && len == 0)
+		ft_strlistadd_end(&g_str, newnode(ft_strspace(flag->wild, 1)));
+	else if (flag->wild > len + 2 && flag->wild > flag->accuracy && len >=
 	flag->accuracy)
 	{
 		ft_strlistadd_end(&g_str, newnode(ft_oct_str(n)));
@@ -87,8 +117,8 @@ void	ft_x_left_octothorpe(ssize_t len, t_flag *flag, char *p, int n)
 		ft_strlistadd_end(&g_str, newnode(ft_strspace(flag->wild - (len + 2),
 				1)));
 	}
-	if (flag->wild > flag->accuracy && flag->wild > len + 2 && flag->accuracy
-	> len)
+	else if (flag->wild > flag->accuracy && flag->wild > len + 2 &&
+	flag->accuracy > len)
 	{
 		ft_strlistadd_end(&g_str, newnode(ft_oct_str(n)));
 		ft_strlistadd_end(&g_str, newnode(ft_strspace(flag->accuracy - len,
@@ -97,25 +127,23 @@ void	ft_x_left_octothorpe(ssize_t len, t_flag *flag, char *p, int n)
 		ft_strlistadd_end(&g_str, newnode(ft_strspace(flag->wild -
 		(flag->accuracy + 2), 1)));
 	}
-//	if (flag->wild > flag->accuracy && flag->wild > len + 2 && flag->accuracy
-//															   > len)
-//	{
-//		ft_max_wild(2 + flag->accuracy, 0, flag, p);
-//		if (!(p[0] == '0' && len == 1))
-//			ft_strlistadd_end(&g_str, newnode(ft_oct_str(n)));
-//		ft_max_accuracy(len, 0, flag, p);
-//	}
-//	if (flag->accuracy > len && flag->accuracy > flag->wild)
-//	{
-//		if (!(p[0] == '0' && len == 1))
-//			ft_strlistadd_end(&g_str, newnode(ft_oct_str(n)));
-//		ft_max_accuracy(len, 0, flag, p);
-//	}
-//	if (len + 2 >= flag->accuracy && len + 2 >= flag->wild)
-//	{
-//		if (!(p[0] == '0' && len == 1))
-//			ft_strlistadd_end(&g_str, newnode(p));
-//	}
+	else if (len >= flag->wild && len >= flag->accuracy)
+	{
+		ft_strlistadd_end(&g_str, newnode(ft_oct_str(n)));
+		ft_strlistadd_end(&g_str, newnode(p));
+	}
+	else if (flag->accuracy >= flag->wild && flag->accuracy > len)
+	{
+		ft_strlistadd_end(&g_str, newnode(ft_oct_str(n)));
+		ft_strlistadd_end(&g_str, newnode(ft_strspace(flag->accuracy - len,
+				2)));
+		ft_strlistadd_end(&g_str, newnode(p));
+	}
+	else if (len + 2 >= flag->wild && len > flag->accuracy)
+	{
+		ft_strlistadd_end(&g_str, newnode(ft_oct_str(n)));
+		ft_strlistadd_end(&g_str, newnode(p));
+	}
 }
 
 void	ft_x_right_octothorpe(ssize_t len, t_flag *flag, char *p, int n)
@@ -149,9 +177,11 @@ void	ft_x_right_octothorpe(ssize_t len, t_flag *flag, char *p, int n)
 			ft_strlistadd_end(&g_str, newnode(ft_oct_str(n)));
 		ft_max_accuracy(len, 0, flag, p);
 	}
+	if (flag->wild > flag->accuracy && p[0] == '\0' && len == 0)
+		ft_strlistadd_end(&g_str, newnode(ft_strspace(flag->wild, 1)));
 	if (len + 2 >= flag->accuracy && len + 2 >= flag->wild)
 	{
-		if (!(p[0] == '0' && len == 1))
+		if (!(p[0] == '0' && len == 1) && flag->accuracy != 0)
 			ft_strlistadd_end(&g_str, newnode(ft_oct_str(n)));
 	}
 }
@@ -194,7 +224,12 @@ void	ft_max_accuracy_octothorpe_zero(ssize_t len, t_flag *flag, char *p, int n)
 void	ft_x_right_octothorpe_zero(ssize_t len, t_flag *flag, char *p, int n)
 {
 	if(flag->wild > len && flag->wild > flag->accuracy)
-		ft_max_wild_octothorpe_zero(len, flag, p, n);
+	{
+		if (flag->l || flag->ll || flag->h || flag->hh)
+			ft_max_wild_octothorpe_zero_lh(len, flag, p, n);
+		else
+			ft_max_wild_octothorpe_zero(len, flag, p, n);
+	}
 	if(flag->accuracy > flag->wild && flag->accuracy > len)
 		ft_max_accuracy_octothorpe_zero(len, flag, p, n);
 	if(len >= flag->wild && len >= flag->accuracy)
@@ -208,7 +243,7 @@ void ft_act_octothorpe(ssize_t len, t_flag *flag, char *p, int n)
 //	if(flag->zero && flag->wild >= len + flag->zero + 2)
 //		flag->accuracy = len + 1;
 //	flag->zero = 0;
-	if (flag->zero)
+	if (flag->zero && flag->min == 0)
 		ft_x_right_octothorpe_zero(len, flag, p, n);
 	else if (flag->min == 0)
 		ft_x_right_octothorpe(len, flag, p, n);
