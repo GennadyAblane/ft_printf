@@ -34,6 +34,7 @@ SRC_NAME =  ft_halper.c \
             func_o.c \
             func_u.c \
             func_x.c \
+            func_f.c \
             string_list.c
 
 OBJ = ./obj/

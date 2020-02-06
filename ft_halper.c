@@ -6,7 +6,7 @@
 /*   By: ablane <ablane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 17:19:42 by ablane            #+#    #+#             */
-/*   Updated: 2020/02/04 09:32:14 by ablane           ###   ########.fr       */
+/*   Updated: 2020/02/06 10:37:35 by ablane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,5 @@ size_t ft_point_p(const char *fr, size_t p, size_t i, char c)
 	{
 		i++;
 	}
-	return (i);
-}
-
-size_t	between_to_spase(const char *fr, size_t i)
-{
-	char *c;
-
-	c = ft_strnew(0);
-	while(fr[i] != ' ' && fr[i] != '\0')
-		c = ft_line_numbers(c, fr[i++]);
-	ft_strlistadd_end(&g_str, newnode(c));
 	return (i);
 }

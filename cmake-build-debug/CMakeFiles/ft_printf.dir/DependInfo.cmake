@@ -10,6 +10,7 @@ set(CMAKE_DEPENDS_CHECK_C
   "/Users/ablane/CLionProjects/ft_printf/ft_printf.c" "/Users/ablane/CLionProjects/ft_printf/cmake-build-debug/CMakeFiles/ft_printf.dir/ft_printf.c.o"
   "/Users/ablane/CLionProjects/ft_printf/func_c.c" "/Users/ablane/CLionProjects/ft_printf/cmake-build-debug/CMakeFiles/ft_printf.dir/func_c.c.o"
   "/Users/ablane/CLionProjects/ft_printf/func_di.c" "/Users/ablane/CLionProjects/ft_printf/cmake-build-debug/CMakeFiles/ft_printf.dir/func_di.c.o"
+  "/Users/ablane/CLionProjects/ft_printf/func_f.c" "/Users/ablane/CLionProjects/ft_printf/cmake-build-debug/CMakeFiles/ft_printf.dir/func_f.c.o"
   "/Users/ablane/CLionProjects/ft_printf/func_o.c" "/Users/ablane/CLionProjects/ft_printf/cmake-build-debug/CMakeFiles/ft_printf.dir/func_o.c.o"
   "/Users/ablane/CLionProjects/ft_printf/func_p.c" "/Users/ablane/CLionProjects/ft_printf/cmake-build-debug/CMakeFiles/ft_printf.dir/func_p.c.o"
   "/Users/ablane/CLionProjects/ft_printf/func_percent.c" "/Users/ablane/CLionProjects/ft_printf/cmake-build-debug/CMakeFiles/ft_printf.dir/func_percent.c.o"

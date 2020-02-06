@@ -6,7 +6,7 @@
 /*   By: ablane <ablane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 17:21:05 by ablane            #+#    #+#             */
-/*   Updated: 2020/02/04 12:07:22 by ablane           ###   ########.fr       */
+/*   Updated: 2020/02/06 10:21:56 by ablane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,14 @@ char	*ft_octothorpe(char *d, ssize_t len);
 char	*ft_signed_int(t_flag *flag, va_list str, int n);
 char	*ft_itoa_base(long long int n, int base, int l_size);
 char	*ft_to_mat(unsigned long long int a, int i, unsigned long long int m);
+void	func_percent(size_t i, const char *fr);
 void	func_c(size_t i, const char *fr, va_list str);
 void	func_s(size_t i, const char *fr, va_list str);
 void	func_p(size_t i, const char *fr, va_list str);
 void	func_o(size_t i, const char *fr, va_list str);
 void	func_u(size_t i, const char *fr, va_list str);
 void	func_x(size_t i, const char *fr, va_list str);
-void	func_percent(size_t i, const char *fr, va_list str);
+void	func_f(size_t i, const char *fr, va_list str);
 void	ft_flag_spase(ssize_t len, ssize_t z, t_flag *flag, char *p);
 void	ft_max_accuracy(ssize_t len, ssize_t z, t_flag *flag, char *p);
 void	ft_no_ac_and_wild(ssize_t len, ssize_t z, t_flag *flag, char *p);

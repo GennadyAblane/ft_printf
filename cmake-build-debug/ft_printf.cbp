@@ -101,6 +101,9 @@
 		<Unit filename="/Users/ablane/CLionProjects/ft_printf/func_di.c">
 			<Option target="ft_printf"/>
 		</Unit>
+		<Unit filename="/Users/ablane/CLionProjects/ft_printf/func_f.c">
+			<Option target="ft_printf"/>
+		</Unit>
 		<Unit filename="/Users/ablane/CLionProjects/ft_printf/func_o.c">
 			<Option target="ft_printf"/>
 		</Unit>

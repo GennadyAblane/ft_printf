@@ -285,6 +285,33 @@ func_di.c.s:
 	$(MAKE) -f CMakeFiles/ft_printf.dir/build.make CMakeFiles/ft_printf.dir/func_di.c.s
 .PHONY : func_di.c.s
 
+func_f.o: func_f.c.o
+
+.PHONY : func_f.o
+
+# target to build an object file
+func_f.c.o:
+	$(MAKE) -f CMakeFiles/ft_printf.dir/build.make CMakeFiles/ft_printf.dir/func_f.c.o
+.PHONY : func_f.c.o
+
+func_f.i: func_f.c.i
+
+.PHONY : func_f.i
+
+# target to preprocess a source file
+func_f.c.i:
+	$(MAKE) -f CMakeFiles/ft_printf.dir/build.make CMakeFiles/ft_printf.dir/func_f.c.i
+.PHONY : func_f.c.i
+
+func_f.s: func_f.c.s
+
+.PHONY : func_f.s
+
+# target to generate assembly for a file
+func_f.c.s:
+	$(MAKE) -f CMakeFiles/ft_printf.dir/build.make CMakeFiles/ft_printf.dir/func_f.c.s
+.PHONY : func_f.c.s
+
 func_o.o: func_o.c.o
 
 .PHONY : func_o.o
@@ -528,6 +555,9 @@ help:
 	@echo "... func_di.o"
 	@echo "... func_di.i"
 	@echo "... func_di.s"
+	@echo "... func_f.o"
+	@echo "... func_f.i"
+	@echo "... func_f.s"
 	@echo "... func_o.o"
 	@echo "... func_o.i"
 	@echo "... func_o.s"

@@ -5,6 +5,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/ft_printf.dir/ft_printf.c.o"
   "CMakeFiles/ft_printf.dir/func_c.c.o"
   "CMakeFiles/ft_printf.dir/func_di.c.o"
+  "CMakeFiles/ft_printf.dir/func_f.c.o"
   "CMakeFiles/ft_printf.dir/func_o.c.o"
   "CMakeFiles/ft_printf.dir/func_p.c.o"
   "CMakeFiles/ft_printf.dir/func_percent.c.o"

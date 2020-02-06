@@ -6,7 +6,7 @@
 /*   By: ablane <ablane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 17:20:16 by ablane            #+#    #+#             */
-/*   Updated: 2020/02/04 09:36:02 by ablane           ###   ########.fr       */
+/*   Updated: 2020/02/06 10:21:56 by ablane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void find_function2(char s, int p, const char *fr, va_list str)
 	if (s == 'k')
 		func_k(p, fr, str);
 */	if (s == '%')
-		func_percent(p, fr, str);
+		func_percent(p, fr);
 }
 
 void find_function(char s, int p, const char *fr, va_list str)
@@ -40,9 +40,9 @@ void find_function(char s, int p, const char *fr, va_list str)
 		func_di(p, fr, str);
 	if (s == 'x' || s == 'X')
 		func_x(p, fr, str);
-/*	if (s == 'f')
+	if (s == 'f')
 		func_f(p, fr, str);
-	if (s == 'e')
+/*	if (s == 'e')
 		func_e(p, fr, str);
 	if (s == 'g')
 		func_g(p, fr, str);
