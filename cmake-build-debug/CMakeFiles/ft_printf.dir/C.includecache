@@ -16,10 +16,6 @@ stdarg.h
 string.h
 -
 
-/Users/ablane/CLionProjects/ft_printf/func_x.c
-ft_printf.h
-/Users/ablane/CLionProjects/ft_printf/ft_printf.h
-
 /Users/ablane/CLionProjects/ft_printf/libft/libft.h
 stdlib.h
 -
@@ -27,4 +23,8 @@ unistd.h
 -
 string.h
 -
+
+/Users/ablane/CLionProjects/ft_printf/main.c
+ft_printf.h
+/Users/ablane/CLionProjects/ft_printf/ft_printf.h
 

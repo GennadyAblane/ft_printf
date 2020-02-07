@@ -25,6 +25,10 @@ CMakeFiles/ft_printf.dir/func_di.c.o: ../ft_printf.h
 CMakeFiles/ft_printf.dir/func_di.c.o: ../func_di.c
 CMakeFiles/ft_printf.dir/func_di.c.o: ../libft/libft.h
 
+CMakeFiles/ft_printf.dir/func_f.c.o: ../ft_printf.h
+CMakeFiles/ft_printf.dir/func_f.c.o: ../func_f.c
+CMakeFiles/ft_printf.dir/func_f.c.o: ../libft/libft.h
+
 CMakeFiles/ft_printf.dir/func_o.c.o: ../ft_printf.h
 CMakeFiles/ft_printf.dir/func_o.c.o: ../func_o.c
 CMakeFiles/ft_printf.dir/func_o.c.o: ../libft/libft.h
