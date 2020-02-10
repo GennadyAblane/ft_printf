@@ -3,6 +3,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/ft_printf.dir/ft_halper.c.o"
   "CMakeFiles/ft_printf.dir/ft_itoa_base.c.o"
   "CMakeFiles/ft_printf.dir/ft_printf.c.o"
+  "CMakeFiles/ft_printf.dir/ft_un_itoa_base.c.o"
   "CMakeFiles/ft_printf.dir/func_c.c.o"
   "CMakeFiles/ft_printf.dir/func_di.c.o"
   "CMakeFiles/ft_printf.dir/func_f.c.o"

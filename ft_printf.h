@@ -66,6 +66,7 @@ char	*ft_strspace(size_t size, size_t z);
 char	*ft_octothorpe(char *d, ssize_t len);
 char	*ft_signed_int(t_flag *flag, va_list str, int n);
 char	*ft_itoa_base(long long int n, int base, int l_size);
+char	*ft_un_itoa_base(unsigned long long int n, int base, int l_size);
 char	*ft_to_mat(unsigned long long int a, int i, unsigned long long int m);
 void	func_percent(size_t i, const char *fr);
 void	func_c(size_t i, const char *fr, va_list str);

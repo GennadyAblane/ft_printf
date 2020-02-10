@@ -231,6 +231,33 @@ ft_printf.c.s:
 	$(MAKE) -f CMakeFiles/ft_printf.dir/build.make CMakeFiles/ft_printf.dir/ft_printf.c.s
 .PHONY : ft_printf.c.s
 
+ft_un_itoa_base.o: ft_un_itoa_base.c.o
+
+.PHONY : ft_un_itoa_base.o
+
+# target to build an object file
+ft_un_itoa_base.c.o:
+	$(MAKE) -f CMakeFiles/ft_printf.dir/build.make CMakeFiles/ft_printf.dir/ft_un_itoa_base.c.o
+.PHONY : ft_un_itoa_base.c.o
+
+ft_un_itoa_base.i: ft_un_itoa_base.c.i
+
+.PHONY : ft_un_itoa_base.i
+
+# target to preprocess a source file
+ft_un_itoa_base.c.i:
+	$(MAKE) -f CMakeFiles/ft_printf.dir/build.make CMakeFiles/ft_printf.dir/ft_un_itoa_base.c.i
+.PHONY : ft_un_itoa_base.c.i
+
+ft_un_itoa_base.s: ft_un_itoa_base.c.s
+
+.PHONY : ft_un_itoa_base.s
+
+# target to generate assembly for a file
+ft_un_itoa_base.c.s:
+	$(MAKE) -f CMakeFiles/ft_printf.dir/build.make CMakeFiles/ft_printf.dir/ft_un_itoa_base.c.s
+.PHONY : ft_un_itoa_base.c.s
+
 func_c.o: func_c.c.o
 
 .PHONY : func_c.o
@@ -549,6 +576,9 @@ help:
 	@echo "... ft_printf.o"
 	@echo "... ft_printf.i"
 	@echo "... ft_printf.s"
+	@echo "... ft_un_itoa_base.o"
+	@echo "... ft_un_itoa_base.i"
+	@echo "... ft_un_itoa_base.s"
 	@echo "... func_c.o"
 	@echo "... func_c.i"
 	@echo "... func_c.s"

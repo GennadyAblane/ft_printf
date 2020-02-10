@@ -17,6 +17,10 @@ CMakeFiles/ft_printf.dir/ft_printf.c.o: ../ft_printf.c
 CMakeFiles/ft_printf.dir/ft_printf.c.o: ../ft_printf.h
 CMakeFiles/ft_printf.dir/ft_printf.c.o: ../libft/libft.h
 
+CMakeFiles/ft_printf.dir/ft_un_itoa_base.c.o: ../ft_printf.h
+CMakeFiles/ft_printf.dir/ft_un_itoa_base.c.o: ../ft_un_itoa_base.c
+CMakeFiles/ft_printf.dir/ft_un_itoa_base.c.o: ../libft/libft.h
+
 CMakeFiles/ft_printf.dir/func_c.c.o: ../ft_printf.h
 CMakeFiles/ft_printf.dir/func_c.c.o: ../func_c.c
 CMakeFiles/ft_printf.dir/func_c.c.o: ../libft/libft.h

@@ -8,6 +8,7 @@ set(CMAKE_DEPENDS_CHECK_C
   "/Users/ablane/CLionProjects/ft_printf/ft_halper.c" "/Users/ablane/CLionProjects/ft_printf/cmake-build-debug/CMakeFiles/ft_printf.dir/ft_halper.c.o"
   "/Users/ablane/CLionProjects/ft_printf/ft_itoa_base.c" "/Users/ablane/CLionProjects/ft_printf/cmake-build-debug/CMakeFiles/ft_printf.dir/ft_itoa_base.c.o"
   "/Users/ablane/CLionProjects/ft_printf/ft_printf.c" "/Users/ablane/CLionProjects/ft_printf/cmake-build-debug/CMakeFiles/ft_printf.dir/ft_printf.c.o"
+  "/Users/ablane/CLionProjects/ft_printf/ft_un_itoa_base.c" "/Users/ablane/CLionProjects/ft_printf/cmake-build-debug/CMakeFiles/ft_printf.dir/ft_un_itoa_base.c.o"
   "/Users/ablane/CLionProjects/ft_printf/func_c.c" "/Users/ablane/CLionProjects/ft_printf/cmake-build-debug/CMakeFiles/ft_printf.dir/func_c.c.o"
   "/Users/ablane/CLionProjects/ft_printf/func_di.c" "/Users/ablane/CLionProjects/ft_printf/cmake-build-debug/CMakeFiles/ft_printf.dir/func_di.c.o"
   "/Users/ablane/CLionProjects/ft_printf/func_f.c" "/Users/ablane/CLionProjects/ft_printf/cmake-build-debug/CMakeFiles/ft_printf.dir/func_f.c.o"

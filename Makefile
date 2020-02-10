@@ -26,6 +26,7 @@ SRC_NAME =  ft_halper.c \
             ft_printf.c \
             ft_find_flag.c \
             ft_itoa_base.c \
+            ft_un_itoa_base.c \
             func_c.c \
             func_di.c \
             func_percent.c \
