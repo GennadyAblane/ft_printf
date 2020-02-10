@@ -6,7 +6,7 @@
 /*   By: ablane <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 10:15:28 by ablane            #+#    #+#             */
-/*   Updated: 2020/02/10 15:24:34 by ablane           ###   ########.fr       */
+/*   Updated: 2020/02/10 17:03:26 by ablane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,27 +153,105 @@ char	*ft_check_five(char *p)
 	return (new);
 }
 
+char	*ft_fractional_roungding(char *p)
+{
+	int len;
+	int i;
+
+	len = ft_strlen(p) - 1;
+	i = 0;
+	if(p[len] >= '5' && p[len] <= '9')
+	{
+		p[len] = '9';
+		while (p[len] == '9' && len > -1)
+		{
+			p[len--] = '0';
+			i = 1;
+		}
+		if(i)
+		{
+			p[len] = p[len] + 1;
+		}
+	}
+	return (p);
+}
+
+char 	*ft_integer_number(long double u)
+{
+	unsigned long long int i;
+	char	*integer;
+
+	i = (unsigned long long int) u;
+	integer = ft_un_itoa_base(i, 10, 0);
+	integer = ft_strjoin(integer, ".");
+	return (integer);
+}
+
+char	*un_ft_strncpy(char *dest, const char *src, size_t n)
+{
+	size_t s;
+
+	s = 0;
+	while (s < n && src[s] != '\0')
+	{
+		dest[s] = src[s];
+		s++;
+	}
+	return (dest);
+}
+
+char	*ft_fractional_number(long double u, t_flag *flag)
+{
+	unsigned long long int i;
+	char					*fractional;
+	char 					*accur_frac;
+	int						max;
+
+	max = 0;
+	i = (unsigned long long int) u;
+	u = u - i;
+	while(max != 17)
+	{
+		u = u * 10;
+		max++;
+	}
+	//todo определить сколько нулей перед числом для вывода точки
+	fractional = ft_un_itoa_base((unsigned long long int)u, 10, 0);
+	fractional = ft_fractional_roungding(fractional);
+	accur_frac = ft_strspace(flag->accuracy + 1, 2);
+	accur_frac = un_ft_strncpy(accur_frac, fractional, flag->accuracy + 1);
+	fractional = ft_fractional_roungding(accur_frac);
+	accur_frac = ft_strspace(flag->accuracy, 2);
+	accur_frac = un_ft_strncpy(accur_frac, fractional, flag->accuracy);
+	return (accur_frac);
+}
+
 char	*ft_flot_str(long double u, t_flag *flag)
 {
 	char	*p;
+	char	*integer;
+	char	*fractional;
 	long long int point;
 	int len;
 
 	point = 0;
 //todo	if(u == целое число,   u - (int)u *10 в максимальной степени)
-	while (point < flag->accuracy)
-	{
-		u = u * 10;
-		point++;
-	}
-	u = u * 10;
-	u = u * 10;//todo лишняя
-	p = ft_un_itoa_base((unsigned long long int)u, 10, 0);
-	p = ft_check_five(p); //todo  проверка на 5 или 4
-	p = ft_add_accuracy(p, flag);
-	p = ft_recount(p, flag);
-	len = ft_strlen(p);
-	p = ft_point_float(p, flag, len, ++point);
+	integer = ft_integer_number(u);
+	fractional = ft_fractional_number(u, flag);
+	p = ft_strjoin(integer, fractional);
+//	while (point < flag->accuracy)
+//	{
+//		u = u * 10;
+//		point++;
+//	}
+//	u = u * 10;
+//	u = u * 10;//todo лишняя
+//	p = ft_un_itoa_base((unsigned long long int)u, 10, 0);
+//	p = ft_check_five(p); //todo  проверка на 5 или 4
+//	p = ft_add_accuracy(p, flag);
+//	p = ft_recount(p, flag);
+//	len = ft_strlen(p);
+//	p = ft_point_float(p, flag, len, ++point);
 	return (p);
 }
 
