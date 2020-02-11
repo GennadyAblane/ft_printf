@@ -6,7 +6,7 @@
 /*   By: ablane <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 10:15:28 by ablane            #+#    #+#             */
-/*   Updated: 2020/02/11 13:27:39 by ablane           ###   ########.fr       */
+/*   Updated: 2020/02/11 14:12:16 by ablane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -309,30 +309,36 @@ char	*ft_fractional_number(long double u, t_flag *flag, char *integer)
 	char					*fractional;
 	char 					*accur_frac;
 	int						max;
-	int 					len;
 
 	max = 19;
-	len = 0;
 	i = (unsigned long long int) u;
 	u = u - i;
-	if (flag->accuracy > 16 && flag->accuracy < 19)
+	if (flag->accuracy > 16 && flag->accuracy < 20)
 		max = flag->accuracy + 1;
 	while(max != 0)
 	{
 		u = u * 10;
 		max--;
-		len++;
 	}
 	//todo определить сколько нулей перед числом для вывода точки
 	fractional = ft_un_itoa_base((unsigned long long int)u, 10, 0);
 	max = ft_strlen(fractional);
-	if(flag->accuracy > 16 && flag->accuracy < 19)
+	if(flag->accuracy > 16 && flag->accuracy < 20)
+	{
 		fractional = ft_strjoin(ft_strspace((flag->accuracy + 1) - max, 2),
-				fractional);
+								fractional);
+		if (flag->accuracy > 18)
+		{
+			accur_frac = ft_strnew(flag->accuracy);
+			accur_frac = ft_strncpy(accur_frac, fractional, flag->accuracy);
+			return (accur_frac);
+		}
+	}
+
 	else
 		fractional = ft_strjoin(ft_strspace(19 - max, 2), fractional);
 	fractional = ft_fractional_roungding(fractional);
-	accur_frac= ft_strnew(flag->accuracy + 1);
+	accur_frac = ft_strnew(flag->accuracy + 1);
 	accur_frac = ft_strncpy(accur_frac, fractional, flag->accuracy + 1);
 	fractional = ft_fractional_roungding(accur_frac);
 	accur_frac = ft_strnew(flag->accuracy);
@@ -363,21 +369,12 @@ char	*ft_flot_str(long double u, t_flag *flag)
 	return (p);
 }
 
-long double	ft_flot_flag_l(t_flag *flag, va_list str, int n)
+long double	ft_flot_flag_l(t_flag *flag, va_list str)
 {
-	int p;
-
-	p = 0;
-	if (flag->specif == 'X')
-		p = 1;
 	if(flag->l)
-		return ((long)va_arg(str, long), n, p);
-	if(flag->ll)
-		return((long long int)va_arg(str, long long), n, p);
-	if(flag->h)
-		return(va_arg(str, int), n, p);
-	if(flag->hh)
-		return(va_arg(str, int), n, p);
+		return (va_arg(str, long));
+	if(flag->L)
+		return (va_arg(str, long double));
 	return (0);
 }
 
@@ -393,8 +390,8 @@ void	func_f(size_t i, const char *fr, va_list str)
 	flag = ft_flag(fr, i, 'f');
 	if (flag->accuracy == -1)
 		flag->accuracy = 6;
-	if(flag->l || flag->ll || flag->h || flag->hh)
-		u = ft_flot_flag_l(flag, str, 10);
+	if(flag->l || flag->L)
+		u = ft_flot_flag_l(flag, str);
 	else
 		u = (long double)va_arg(str, double);
 	if (u < 0)

@@ -6,7 +6,7 @@
 /*   By: ablane <ablane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 17:21:45 by ablane            #+#    #+#             */
-/*   Updated: 2020/02/05 12:36:58 by ablane           ###   ########.fr       */
+/*   Updated: 2020/02/11 13:46:57 by ablane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ ssize_t ft_find_l(const char *fr, size_t i, char spec)
 
 ssize_t ft_find_L(const char *fr, size_t i, char spec)
 {
-	while (fr[i] != spec && fr[i] != '.' && ((fr[i] <= '1') || (fr[i] > '9')))
+	while (fr[i] != spec)
 	{
 		if (fr[i] == 'L')
 			return(1);
