@@ -6,7 +6,7 @@
 /*   By: ablane <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 10:15:28 by ablane            #+#    #+#             */
-/*   Updated: 2020/02/11 14:12:16 by ablane           ###   ########.fr       */
+/*   Updated: 2020/02/11 14:35:23 by ablane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -323,10 +323,15 @@ char	*ft_fractional_number(long double u, t_flag *flag, char *integer)
 	//todo определить сколько нулей перед числом для вывода точки
 	fractional = ft_un_itoa_base((unsigned long long int)u, 10, 0);
 	max = ft_strlen(fractional);
+	if(flag->accuracy == 20 && max > 1)
+		return (ft_strjoin(ft_strspace((flag->accuracy - 1) - max, 2),
+						   fractional));
 	if(flag->accuracy > 16 && flag->accuracy < 20)
 	{
 		fractional = ft_strjoin(ft_strspace((flag->accuracy + 1) - max, 2),
 								fractional);
+		if(max == 1)
+			fractional = ft_fractional_roungding(fractional);
 		if (flag->accuracy > 18)
 		{
 			accur_frac = ft_strnew(flag->accuracy);

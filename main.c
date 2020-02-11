@@ -6,7 +6,7 @@
 /*   By: ablane <ablane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 17:17:22 by ablane            #+#    #+#             */
-/*   Updated: 2020/02/11 14:04:43 by ablane           ###   ########.fr       */
+/*   Updated: 2020/02/11 14:22:43 by ablane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int main()
 //	printf("%s", "sdg");
 //	p = printf("[%15.8s][%s] [%-15.11s] eshe raz", NULL, "%015d", "shpilivili");
 
-	p = printf("this [%.19f] float", 0.000000000000000000100);
+	p = printf("this [%.20f] float", 1.025978542436587568678);
 	printf("\n");
 	printf("\n");
 	printf("%d", p);
@@ -50,7 +50,7 @@ int main()
 //	i = ft_printf("[%15.8s][%s] [%-15.11s] eshe raz", NULL, "%015d",
 //	"shpilivili");
 
-	i = ft_printf("this [%.19f] float", 0.000000000000000000100);
+	i = ft_printf("this [%.20f] float", 1.025978542436587568678);
 	printf("\n");
 	printf("%d", i);
 
