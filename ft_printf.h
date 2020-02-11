@@ -76,6 +76,7 @@ void	func_o(size_t i, const char *fr, va_list str);
 void	func_u(size_t i, const char *fr, va_list str);
 void	func_x(size_t i, const char *fr, va_list str);
 void	func_f(size_t i, const char *fr, va_list str);
+void	ft_di_left(ssize_t len, ssize_t z, t_flag *flag, char *p);
 void	ft_flag_spase(ssize_t len, ssize_t z, t_flag *flag, char *p);
 void	ft_max_accuracy(ssize_t len, ssize_t z, t_flag *flag, char *p);
 void	ft_no_ac_and_wild(ssize_t len, ssize_t z, t_flag *flag, char *p);

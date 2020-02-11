@@ -6,7 +6,7 @@
 /*   By: ablane <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 10:15:28 by ablane            #+#    #+#             */
-/*   Updated: 2020/02/10 17:03:26 by ablane           ###   ########.fr       */
+/*   Updated: 2020/02/11 13:27:39 by ablane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,7 +168,7 @@ char	*ft_fractional_roungding(char *p)
 			p[len--] = '0';
 			i = 1;
 		}
-		if(i)
+		if(i && len > -1)
 		{
 			p[len] = p[len] + 1;
 		}
@@ -176,14 +176,97 @@ char	*ft_fractional_roungding(char *p)
 	return (p);
 }
 
-char 	*ft_integer_number(long double u)
+char	*ft_add_one_int(char *integer)
+{
+	char	*new;
+	char 	*tmp;
+	int		len;
+	int 	i;
+
+	i = 0;
+	len = ft_strlen(integer) - 1;
+	if (integer[len] == '9' && len > -1)
+	{
+		while (integer[len] == '9' && len != -1)
+		{
+			integer[len--] = '0';
+			i = 1;
+		}
+		if(integer[0] == '0' && len == -1 && i)
+		{
+			tmp = ft_strnew(1);
+			tmp[0] = '1';
+			new = ft_strjoin(tmp, integer);
+			free(tmp);
+			free(integer);
+			return (new);
+		}
+	}
+		integer[len] = integer[len] + 1;
+	return (integer);
+}
+
+char	*ft_fraction_overflow(char *accur_frac, char *integer)
+{
+	int len;
+	int i;
+
+	len = ft_strlen(accur_frac) - 1;
+	i = 0;
+	if (accur_frac[len] >= '5' && accur_frac[len] <= '9')
+	{
+		accur_frac[len] = '9';
+		while (accur_frac[len] == '9' && len > -1)
+		{
+			accur_frac[len--] = '0';
+			i = 1;
+		}
+		if (i && len > -1)
+		{
+			accur_frac[len] = accur_frac[len] + 1;
+		}
+		if (accur_frac[0] == '0' && len == -1 && i)
+			integer = ft_add_one_int(integer);
+	}
+	return (integer);
+}
+
+char	*ft_mode_integer(char *integer, long double u, t_flag *flag)
+{
+	unsigned long long int i;
+	char					*fractional;
+	char 					*accur_frac;
+	int						max;
+
+	max = 0;
+	i = (unsigned long long int) u;
+	u = u - i;
+
+	while(max !=19)
+	{
+		u = u * 10;
+		max++;
+	}
+	fractional = ft_un_itoa_base((unsigned long long int)u, 10, 0);
+	max = ft_strlen(fractional);
+	fractional = ft_strjoin(ft_strspace(19 - max, 2), fractional);
+	fractional = ft_fractional_roungding(fractional);
+	accur_frac= ft_strnew(flag->accuracy + 1);
+	accur_frac = ft_strncpy(accur_frac, fractional, flag->accuracy + 1);
+	integer = ft_fraction_overflow(accur_frac, integer);
+	return (integer);
+}
+
+char 	*ft_integer_number(long double u, t_flag *flag)
 {
 	unsigned long long int i;
 	char	*integer;
 
 	i = (unsigned long long int) u;
 	integer = ft_un_itoa_base(i, 10, 0);
-	integer = ft_strjoin(integer, ".");
+	integer = ft_mode_integer(integer, u, flag);
+	if(flag->accuracy > 0 || flag->reshotka)
+		integer = ft_strjoin(integer, ".");
 	return (integer);
 }
 
@@ -200,29 +283,60 @@ char	*un_ft_strncpy(char *dest, const char *src, size_t n)
 	return (dest);
 }
 
-char	*ft_fractional_number(long double u, t_flag *flag)
+char	*ft_find_comma_float(long double u, t_flag *flag)
+{
+	char	*new;
+	int		i;
+	int 	len;
+
+	i = 0;
+	while (i != flag->accuracy)
+	{
+		u = u * 10;
+		i++;
+	}
+	new = ft_un_itoa_base((unsigned long long int)u, 10, 0);
+	len = ft_strlen(new);
+	i = flag->accuracy - len;
+	free(new);
+	new = ft_strspace(i, 2);
+	return (new);
+}
+
+char	*ft_fractional_number(long double u, t_flag *flag, char *integer)
 {
 	unsigned long long int i;
 	char					*fractional;
 	char 					*accur_frac;
 	int						max;
+	int 					len;
 
-	max = 0;
+	max = 19;
+	len = 0;
 	i = (unsigned long long int) u;
 	u = u - i;
-	while(max != 17)
+	if (flag->accuracy > 16 && flag->accuracy < 19)
+		max = flag->accuracy + 1;
+	while(max != 0)
 	{
 		u = u * 10;
-		max++;
+		max--;
+		len++;
 	}
 	//todo определить сколько нулей перед числом для вывода точки
 	fractional = ft_un_itoa_base((unsigned long long int)u, 10, 0);
+	max = ft_strlen(fractional);
+	if(flag->accuracy > 16 && flag->accuracy < 19)
+		fractional = ft_strjoin(ft_strspace((flag->accuracy + 1) - max, 2),
+				fractional);
+	else
+		fractional = ft_strjoin(ft_strspace(19 - max, 2), fractional);
 	fractional = ft_fractional_roungding(fractional);
-	accur_frac = ft_strspace(flag->accuracy + 1, 2);
-	accur_frac = un_ft_strncpy(accur_frac, fractional, flag->accuracy + 1);
+	accur_frac= ft_strnew(flag->accuracy + 1);
+	accur_frac = ft_strncpy(accur_frac, fractional, flag->accuracy + 1);
 	fractional = ft_fractional_roungding(accur_frac);
-	accur_frac = ft_strspace(flag->accuracy, 2);
-	accur_frac = un_ft_strncpy(accur_frac, fractional, flag->accuracy);
+	accur_frac = ft_strnew(flag->accuracy);
+	accur_frac = ft_strncpy(accur_frac, fractional, flag->accuracy);
 	return (accur_frac);
 }
 
@@ -236,42 +350,76 @@ char	*ft_flot_str(long double u, t_flag *flag)
 
 	point = 0;
 //todo	if(u == целое число,   u - (int)u *10 в максимальной степени)
-	integer = ft_integer_number(u);
-	fractional = ft_fractional_number(u, flag);
+	integer = ft_integer_number(u, flag);
+	fractional = ft_fractional_number(u, flag, integer);
+	len = ft_strlen (fractional);
+	if (flag->accuracy > len)
+	{
+		p = ft_strjoin(fractional, ft_strspace(flag->accuracy - len, 2));
+		free(fractional);
+		fractional = p;
+	}
 	p = ft_strjoin(integer, fractional);
-//	while (point < flag->accuracy)
-//	{
-//		u = u * 10;
-//		point++;
-//	}
-//	u = u * 10;
-//	u = u * 10;//todo лишняя
-//	p = ft_un_itoa_base((unsigned long long int)u, 10, 0);
-//	p = ft_check_five(p); //todo  проверка на 5 или 4
-//	p = ft_add_accuracy(p, flag);
-//	p = ft_recount(p, flag);
-//	len = ft_strlen(p);
-//	p = ft_point_float(p, flag, len, ++point);
 	return (p);
+}
+
+long double	ft_flot_flag_l(t_flag *flag, va_list str, int n)
+{
+	int p;
+
+	p = 0;
+	if (flag->specif == 'X')
+		p = 1;
+	if(flag->l)
+		return ((long)va_arg(str, long), n, p);
+	if(flag->ll)
+		return((long long int)va_arg(str, long long), n, p);
+	if(flag->h)
+		return(va_arg(str, int), n, p);
+	if(flag->hh)
+		return(va_arg(str, int), n, p);
+	return (0);
 }
 
 void	func_f(size_t i, const char *fr, va_list str)
 {
 	long double u;
 	t_flag	*flag;
-	char *p;
+	char	*p;
+	int		len;
+	int		z;
 
+	z = 0;
 	flag = ft_flag(fr, i, 'f');
 	if (flag->accuracy == -1)
 		flag->accuracy = 6;
-	u = (long double)va_arg(str, double);
+	if(flag->l || flag->ll || flag->h || flag->hh)
+		u = ft_flot_flag_l(flag, str, 10);
+	else
+		u = (long double)va_arg(str, double);
 	if (u < 0)
 	{
 		flag->str_min = 1;
 		u = u * -1;
-		ft_strlistadd_end(&g_str, newnode("-"));
 	}
 	p = ft_flot_str(u, flag);
-	ft_strlistadd_end(&g_str, newnode(p));
+	len = ft_strlen(p);
+	if (flag->plus || flag->str_min)
+		z = 1;
+	if(flag->space)
+		ft_flag_spase(len, z, flag, p);
+	if(flag->min)//todo || flag->accuracy > -1)
+		flag->zero = 0;
+//	if (p[0] == '0' && (flag->accuracy == 0))
+//	{
+//		p[0] = 0;
+//		len--;
+//	}
+	if (flag->min == 0)
+		ft_di_right(len, z, flag, p);
+	if (flag->min == 1)
+		ft_di_left(len, z, flag, p);
+	if (flag->min == 0)
+		ft_strlistadd_end(&g_str, newnode(p));
 	free(flag);
 }
